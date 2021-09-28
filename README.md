@@ -2,11 +2,11 @@
 
 # Coin Leagues Champions
 
-Coin body rarity is attributed using ChainLink VRF making rarity randomized. All the others traits are generated in place based on probabilities onchain. On chain rarity it will be used to power up the Coin Leagues Game.
+Coin body rarity is attributed using ChainLink VRF making rarity randomized. All the others traits are generated in place based on probabilities defined previously offchain. On chain rarity it will be used to power up the Coin Leagues Game.
 
 # References
 
-[https://docs.chain.link/docs/vrf-contracts/](Chainlink VRF)
+[Chainlink VRF](https://docs.chain.link/docs/vrf-contracts/)
 
 # Contracts
 
