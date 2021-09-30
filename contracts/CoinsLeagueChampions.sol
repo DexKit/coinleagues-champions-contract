@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract CoinsLeagueChampions is ERC721, VRFConsumerBase, Ownable {
+contract CoinLeagueChampions is ERC721, VRFConsumerBase, Ownable {
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIdCounter;
@@ -17,7 +17,6 @@ contract CoinsLeagueChampions is ERC721, VRFConsumerBase, Ownable {
     uint256 constant HOLDING_BITT = 1000 * 10 ** 18;// 1000 BITT
     bytes32 internal keyHash;
     uint256 internal fee;
-    uint256 public randomResult;
     IERC20 internal immutable DEXKIT;
     IERC20 internal immutable BITTOKEN;
     // Mapping of rarity with token ID
@@ -85,7 +84,7 @@ contract CoinsLeagueChampions is ERC721, VRFConsumerBase, Ownable {
         uint256 randomRarity = (randomNumber % 1000);
         uint256 index = 0;
         for(uint256 i = 0; i < accumulated_rarity.length; i++){
-            if(accumulated_rarity[i] >= randomRarity && accumulated_rarity[i] < randomRarity){
+            if(randomRarity > accumulated_rarity[i] && randomRarity <= accumulated_rarity[i + 1] < ){
                 index = i;
                 break;
             }

@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract CoinsLeagueChampionsMumbai is ERC721, VRFConsumerBase, Ownable {
+contract CoinLeagueChampionsMumbai is ERC721, VRFConsumerBase, Ownable {
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIdCounter;
@@ -36,7 +36,7 @@ contract CoinsLeagueChampionsMumbai is ERC721, VRFConsumerBase, Ownable {
     // Fee	0.0001 LINK
 
     constructor(address _VRFCoordinator, address _LinkToken, bytes32 _keyhash, address _kit, address _bittoken)
-    ERC721("CoinsLeagueChampions", "Champions")
+    ERC721("CoinLeagueChampions", "Champions")
     VRFConsumerBase(
             _VRFCoordinator, // VRF Coordinator
             _LinkToken  // LINK Token
@@ -59,7 +59,7 @@ contract CoinsLeagueChampionsMumbai is ERC721, VRFConsumerBase, Ownable {
             require(block.timestamp >= SALE_TIMESTAMP );
         }
 
-        require(_tokenIdCounter.current() <= MAX_SUPPLY, "Max Supply reached" );
+        require(_tokenIdCounter.current() < MAX_SUPPLY, "Max Supply reached" );
         require(msg.value == PRICE, "Not enough amount" );
         requestId = requestRandomness(keyHash, fee);
         requestToSender[requestId] = msg.sender;
@@ -93,7 +93,7 @@ contract CoinsLeagueChampionsMumbai is ERC721, VRFConsumerBase, Ownable {
         uint256 randomRarity = (randomNumber % 1000);
         uint256 index = 0;
         for(uint256 i = 0; i < accumulated_rarity.length; i++){
-            if(accumulated_rarity[i] >= randomRarity && accumulated_rarity[i] < randomRarity){
+            if(randomRarity > accumulated_rarity[i] && randomRarity <= accumulated_rarity[i + 1] < ){
                 index = i;
                 break;
             }
