@@ -39,7 +39,7 @@ contract CoinLeagueChampions is ERC721, VRFConsumerBase, Ownable {
     IERC20 internal immutable BITTOKEN = IERC20(0xfd0cbdDec28a93bB86B9db4A62258F5EF25fEfdE);
     IERC20 internal immutable WETH = IERC20(0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619);
     // Mapping of rarity with token ID
-    mapping(uint256 => uint256) public rarity;
+    mapping(uint256 => int256) internal rarity;
     mapping(bytes32 => address) requestToSender;
     mapping(bytes32 => uint256) requestToTokenId;
                                     //%1, 5 %, 7.5%, 9%, 12.5%, 15%                               
@@ -131,12 +131,16 @@ contract CoinLeagueChampions is ERC721, VRFConsumerBase, Ownable {
                 break;
             }
         }
-        rarity[id] = index;
+        rarity[id] = int256(index);
         attack[id] = uint256(keccak256(abi.encode(randomNumber, 1))) % 1000;
         defense[id] = uint256(keccak256(abi.encode(randomNumber, 2))) % 1000;
         run[id] = uint256(keccak256(abi.encode(randomNumber, 3))) % 1000;
         _safeMint(requestToSender[requestId], requestToTokenId[requestId]);
     }
+
+    function getRarityOf(uint256 tokenId) public view returns(int256){
+        return rarity[tokenId];
+    } 
 
     function withdrawLink() external onlyOwner(){
         LINK.transfer(owner(), LINK.balanceOf(address(this)));

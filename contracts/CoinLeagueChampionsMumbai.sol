@@ -37,7 +37,7 @@ contract CoinLeagueChampionsMumbai is ERC721, VRFConsumerBase, Ownable {
     IERC20 internal immutable BITTOKEN;
     IERC20 internal immutable WETH = IERC20(0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619);
     // Mapping of rarity with token ID
-    mapping(uint256 => uint256) public rarity;
+    mapping(uint256 => int256) public rarity;
     mapping(bytes32 => address) requestToSender;
     mapping(bytes32 => uint256) requestToTokenId;
                                     //%1, 5 %, 7.5%, 9%, 12.5%, 15%                               
@@ -131,7 +131,7 @@ contract CoinLeagueChampionsMumbai is ERC721, VRFConsumerBase, Ownable {
                 break;
             }
         }
-        rarity[id] = index;
+        rarity[id] = int256(index);
         attack[id] = uint256(keccak256(abi.encode(randomNumber, 1))) % 1000;
         defense[id] = uint256(keccak256(abi.encode(randomNumber, 2))) % 1000;
         run[id] = uint256(keccak256(abi.encode(randomNumber, 3))) % 1000;
