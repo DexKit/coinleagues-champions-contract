@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract CoinLeagueChampionsMumbai is ERC721, VRFConsumerBase, Ownable {
+contract CoinLeagueChampions is ERC721, VRFConsumerBase, Ownable {
     using Counters for Counters.Counter;
     using SafeERC20 for IERC20;
     Counters.Counter private _tokenIdCounter;
