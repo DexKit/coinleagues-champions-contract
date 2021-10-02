@@ -62,7 +62,7 @@ contract CoinLeagueChampions is ERC721, VRFConsumerBase, Ownable {
         fee = 0.0001 * 10**18; // 0.0001 LINK
     }
     // Owner can mint at any time
-    function preMine() public onlyOwner() returns (bytes32 requestId){
+    function preMine() public onlyOwner returns (bytes32 requestId){
         require(_tokenIdCounter.current() < PRE_MINE_MAX_SUPPLY, "Pre mine supply reached" );
         requestId = safeMint();
     }
@@ -142,11 +142,11 @@ contract CoinLeagueChampions is ERC721, VRFConsumerBase, Ownable {
         return rarity[tokenId];
     } 
 
-    function withdrawLink() external onlyOwner(){
+    function withdrawLink() external onlyOwner{
         LINK.transfer(owner(), LINK.balanceOf(address(this)));
     }
 
-    function withdrawETH() external payable onlyOwner(){
+    function withdrawETH() external payable onlyOwner{
        (bool sent, ) = owner().call{
             value: address(this).balance
         }("");

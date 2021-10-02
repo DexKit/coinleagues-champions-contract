@@ -62,7 +62,7 @@ contract CoinLeagueChampionsMumbai is ERC721, VRFConsumerBase, Ownable {
         BITTOKEN = IERC20(_bittoken);
     }
     // Owner can mint at any time
-    function preMine() public onlyOwner() returns (bytes32 requestId){
+    function preMine() public onlyOwner returns (bytes32 requestId){
         require(_tokenIdCounter.current() < PRE_MINE_MAX_SUPPLY, "Pre mine supply reached" );
         requestId = safeMint();
     }
@@ -138,11 +138,11 @@ contract CoinLeagueChampionsMumbai is ERC721, VRFConsumerBase, Ownable {
         _safeMint(requestToSender[requestId], requestToTokenId[requestId]);
     }
 
-    function withdrawLink() external onlyOwner(){
+    function withdrawLink() external onlyOwner{
         LINK.transfer(owner(), LINK.balanceOf(address(this)));
     }
 
-    function withdrawETH() external payable onlyOwner(){
+    function withdrawETH() external payable onlyOwner{
        (bool sent, ) = owner().call{
             value: address(this).balance
         }("");
