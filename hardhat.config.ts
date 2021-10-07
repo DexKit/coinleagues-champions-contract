@@ -29,8 +29,8 @@ const { ALCHEMY_API, PRIVATE_KEY } = process.env;
   networks: {
     hardhat: {
       forking: {
-        url: `https://eth-mainnet.alchemyapi.io/v2/${ALCHEMY_API}`,
-        blockNumber: 12956195
+        url: `https://polygon-rpc.com/`,
+        blockNumber:  19887968
       }
     },
     mumbai: {
@@ -46,5 +46,8 @@ const { ALCHEMY_API, PRIVATE_KEY } = process.env;
   },
   gasReporter: {
     enabled: true
-  }
+  },
+  mocha: {
+    timeout: 2000000,
+  },
 };

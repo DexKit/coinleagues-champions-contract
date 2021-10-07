@@ -16,7 +16,7 @@ contract CoinLeagueChampions is ERC721, VRFConsumerBase, Ownable {
     uint256 constant PRE_MINE_MAX_SUPPLY = 150;
     uint256 constant MAX_SUPPLY_1 = 7850;
     uint256 constant MAX_SUPPLY_2 = 8000;
-    uint256 constant MAX_SUPPLY = 15000;
+    uint256 constant MAX_SUPPLY = 16000;
     uint256 constant PRICE_FIRST = 0.05 ether;
     uint256 constant PRICE_SECOND = 0.055 ether;
     uint256 constant HOLDING_KIT = 125 * 10 ** 18;// 125 KIT
@@ -63,7 +63,7 @@ contract CoinLeagueChampions is ERC721, VRFConsumerBase, Ownable {
     }
     // Owner can mint at any time
     function preMine() public onlyOwner returns (bytes32 requestId){
-        require(_tokenIdCounter.current() < PRE_MINE_MAX_SUPPLY, "Pre mine supply reached" );
+        require(_tokenIdCounter.current() + 1 < PRE_MINE_MAX_SUPPLY, "Pre mine supply reached" );
         requestId = safeMint();
     }
 
@@ -73,8 +73,8 @@ contract CoinLeagueChampions is ERC721, VRFConsumerBase, Ownable {
         }else{
             require(block.timestamp >= SALE_TIMESTAMP_FIRST );
         }
-        require(_tokenIdCounter.current() >= PRE_MINE_MAX_SUPPLY, "Need to Premine First" );
-        require(_tokenIdCounter.current() < MAX_SUPPLY_1 + PRE_MINE_MAX_SUPPLY, "First Round Max Supply reached" );
+        require(_tokenIdCounter.current() + 1 >= PRE_MINE_MAX_SUPPLY, "Need to Premine First" );
+        require(_tokenIdCounter.current() + 1 < MAX_SUPPLY_1 + PRE_MINE_MAX_SUPPLY, "First Round Max Supply reached" );
         WETH.safeTransferFrom(msg.sender, TEAM_WALLET, PRICE_FIRST);
         requestId = safeMint();
         
@@ -86,7 +86,7 @@ contract CoinLeagueChampions is ERC721, VRFConsumerBase, Ownable {
         }else{
             require(block.timestamp >= SALE_TIMESTAMP_SECOND );
         }
-        require(_tokenIdCounter.current() <= MAX_SUPPLY_1 + PRE_MINE_MAX_SUPPLY, "Still tokens on first round" );
+        require(_tokenIdCounter.current() + 1 <= MAX_SUPPLY_1 + PRE_MINE_MAX_SUPPLY, "Still tokens on first round" );
         WETH.safeTransferFrom(msg.sender, TEAM_WALLET, PRICE_SECOND);
         requestId = safeMint();     
     }
