@@ -159,7 +159,7 @@ contract CoinLeagueChampionsMumbai is ERC721, VRFConsumerBase, Ownable {
         uint256 randomRarity = (randomNumber % 1000);
         uint256 index = 0;
         for(uint256 i = 0; i < 8; i++){
-            if(randomRarity > accumulated_rarity[i] && randomRarity <= accumulated_rarity[i + 1]){
+            if(randomRarity >= accumulated_rarity[i] && randomRarity < accumulated_rarity[i + 1]){
                 index = i;
                 break;
             }
