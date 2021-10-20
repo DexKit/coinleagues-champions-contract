@@ -2,12 +2,16 @@ import { expect } from "chai";
 import { BigNumber } from "ethers";
 import { ethers, network } from "hardhat";
 
+const PRICE1 = BigNumber.from(250).mul(BigNumber.from(10).pow(18));
+const PRICE2 = BigNumber.from(260).mul(BigNumber.from(10).pow(18));
+const PRICE3 = BigNumber.from(270).mul(BigNumber.from(10).pow(18));
+
 describe("Champions", function () {
-  it("should premine and mint all coins after timestamps", async function () {
-    const Champions = await ethers.getContractFactory("CoinLeagueChampions");
-    const Weth = await ethers.getContractFactory("Token");
+  it("should premine test  and mint all coins after timestamps", async function () {
+    const Champions = await ethers.getContractFactory(
+      "CoinLeagueChampionsTest"
+    );
     const ChainLink = await ethers.getContractFactory("Token");
-    const weth = Weth.attach("0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619");
     const link = ChainLink.attach("0xb0897686c545045aFc77CF20eC7A532E3120E0F1");
     const champions = await Champions.deploy();
     await champions.deployed();
@@ -18,16 +22,9 @@ describe("Champions", function () {
       method: "hardhat_impersonateAccount",
       params: ["0x77ceea82E4362dD3B2E0D7F76d0A71A628Cad300"],
     });
-    const wethAmount = BigNumber.from(1000).mul(BigNumber.from(10).pow(18));
+
     const linkAmount = BigNumber.from(100).mul(BigNumber.from(10).pow(18));
 
-    const wethSigner = await ethers.getSigner(
-      "0x77ceea82E4362dD3B2E0D7F76d0A71A628Cad300"
-    );
-    // At this moment owner will have 1000 WETH on Polygon
-    await weth.connect(wethSigner).transfer(owner.address, wethAmount);
-    const balance = await weth.balanceOf(owner.address)
-    console.log(balance.toString());
     // impersonate account with LINK on Polygon to send to contract
     await network.provider.request({
       method: "hardhat_impersonateAccount",
@@ -38,15 +35,14 @@ describe("Champions", function () {
     );
     // At this moment contract now have sufficient amount to use VRF
     await link.connect(linkSigner).transfer(champions.address, linkAmount);
-    const balance2 = await link.balanceOf(champions.address)
+    const balance2 = await link.balanceOf(champions.address);
     console.log(balance2.toString());
 
     await network.provider.send("hardhat_setBalance", [
       owner.address,
       "0x10000000000000000000000000000000000000000000000000000",
     ]);
-    // we need to approve contract to spend tokens
-    await weth.connect(owner).approve(champions.address, wethAmount);
+
     // First round should fail, if no premine was done
     expect(champions.mintFirstRound()).to.be.revertedWith(
       "Need to Premine First"
@@ -58,38 +54,84 @@ describe("Champions", function () {
     let failedMines = 0;
 
     // let's premine all the amount
-    for (let index = 0; index < 150; index++) {
-     console.log(index);
-     try{
-        await champions.preMine();
-        console.log(`allocated rarity`)
+    for (let index = 0; index < 8; index++) {
+      console.log(index);
+      try {
+        const mine = await champions.preMine();
+        await mine.wait();
+        console.log(`allocated rarity`);
         console.log((await champions.getRarityOf(index)).toString());
-     }catch(e){
-      console.log(e);
-      failedMines++;
-      console.log(`failed: ${index}`)
-     }
+      } catch (e) {
+        console.log(e);
+        failedMines++;
+        console.log(`failed: ${index}`);
+      }
     }
-    console.log(failedMines);
 
-     // let's premine all the amount
-     for (let index = 0; index < failedMines; index++) {
+    // first round
+    for (let index = 0; index < 40; index++) {
+      console.log(index);
+      try {
+        const mine = await champions.mintFirstRound({value: PRICE1});
+        await mine.wait();
+        console.log(`allocated rarity`);
+        console.log((await champions.getRarityOf(index)).toString());
+      } catch (e) {
+        console.log(e);
+        failedMines++;
+        console.log(`failed: ${index}`);
+      }
+    }
+
+    // second round
+    for (let index = 0; index < 40; index++) {
+      console.log(index);
+      try {
+        const mine = await champions.mintSecondRound({value: PRICE2});
+        await mine.wait();
+        console.log(`allocated rarity`);
+        console.log((await champions.getRarityOf(index)).toString());
+      } catch (e) {
+        console.log(e);
+        failedMines++;
+        console.log(`failed: ${index}`);
+      }
+    }
+
+    // third round
+    for (let index = 0; index < 22; index++) {
+      console.log(index);
+      try {
+        const mine = await champions.mintThirdRound({value: PRICE3});
+        await mine.wait();
+        console.log(`allocated rarity`);
+        console.log((await champions.getRarityOf(index)).toString());
+      } catch (e) {
+        console.log(e);
+        failedMines++;
+        console.log(`failed: ${index}`);
+      }
+    }
+
+    const mine = await champions.withdrawETH();
+    await mine.wait();
+
+    expect((await champions.balanceOf(owner.address)).toString()).to.be.equal("110");
+
+    // let's premine all the amount
+    /*  for (let index = 0; index < failedMines; index++) {
       console.log(index);
       try{
          await champions.preMine();
       }catch{
       console.log('failed on recursion')
       }
-     }
-   
+     }*/
 
-
-    expect((await champions.balanceOf(owner)).toString()).to.be.equal("150");
-    expect(champions.preMine()).to.be.revertedWith(
-      "Pre mine supply reached"
-    );
+  //  expect((await champions.balanceOf(owner)).toString()).to.be.equal("150");
+   // expect(champions.preMine()).to.be.revertedWith("Pre mine supply reached");
     //second round should fail, if no premine was done
-   /* expect(champions.mintSecondRound()).to.be.revertedWith(
+    /* expect(champions.mintSecondRound()).to.be.revertedWith(
       "Still tokens on first round"
     );
 

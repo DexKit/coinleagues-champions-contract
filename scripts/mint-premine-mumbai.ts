@@ -12,24 +12,18 @@ async function main() {
   // manually to make sure everything is compiled
   // await hre.run('compile');
   // On Mumbai
-  const LINK_Token	= '0x326C977E6efc84E512bB9C30f76E30c160eD06FB';
-  const VRF_Coordinator = '0x8C7382F9D8f56b33781fE506E897a4F1e2d17255';
-  const Key_Hash = '0x6e75b569a01ef56d18cab6a8e71e6600d6ce853834d4a5748b720d06f878b3a4';
-  // deploy Bitt Testnet token to Mumbai
-  /*const Bitt = await hre.ethers.getContractFactory("Token");
-  const bitt  = await Bitt.deploy('Bittoken', 'Bitt', 42000000);
-  await bitt.deployed();
-  console.log("Bitt deployed to:", bitt.address);
-  // deploy Kitt Testnet token to Mumbai
-  const Kit = await hre.ethers.getContractFactory("Token");
-  const kit  = await Kit.deploy('DexKit', 'KIT', 10000000);
-  await kit.deployed();
-  console.log("Kitt deployed to:", kit.address);*/
-  const kitAddress = "0xdf2e4383363609351637d262f6963D385b387340";
-  const bitAddress = "0x82941691fBAeE671740Ed1B6A326B45081E6a011";
+  const championsAddress = "0xd940E4e443a9bC2Bdbe6521677906ECDCB96Eb42"
 
   const Champions = await hre.ethers.getContractFactory("CoinLeagueChampionsMumbai");
-  const champions  = await Champions.deploy(VRF_Coordinator, LINK_Token, Key_Hash, bitAddress, kitAddress);
+  const champions  = await Champions.attach(championsAddress);
+  let mine;
+
+  for (let index = 0; index < 10; index++) {
+    mine = await champions.preMine()
+    await mine.wait()
+    console.log('pre mined %d', index)
+  }
+ 
 
   await champions.deployed();
   console.log("Champions deployed to:", champions.address);

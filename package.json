@@ -7,7 +7,8 @@
   "scripts": {
     "test": "npx hardhat  test",   
     "compile": "npx hardhat  compile",
-    "deploy:mumbai": "npx hardhat run scripts/deploy-coinleaguechampions-mumbai.ts --network mumbai"
+    "deploy:mumbai": "npx hardhat run scripts/deploy-coinleaguechampions-mumbai.ts --network mumbai",
+    "mint:premine:mumbai": "npx hardhat run scripts/mint-premine-mumbai.ts --network mumbai"
   },
   "devDependencies": {
     "@chainlink/contracts": "^0.2.1",
