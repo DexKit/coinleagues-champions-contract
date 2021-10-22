@@ -45,8 +45,8 @@ contract CoinLeagueChampions is ERC721, VRFConsumerBase, Ownable {
     IERC20 internal immutable BITTOKEN = IERC20(0xfd0cbdDec28a93bB86B9db4A62258F5EF25fEfdE);
     // Mapping of rarity with token ID
     mapping(uint256 => uint256) internal rarity;
-    mapping(bytes32 => address) requestToSender;
-    mapping(bytes32 => uint256) requestToTokenId;
+    mapping(bytes32 => address) public requestToSender;
+    mapping(bytes32 => uint256) public requestToTokenId;
                                     //%1, 5 %, 7.5%, 9%, 12.5%, 15%                               
     uint256 [] accumulated_rarity = [0, 25, 75, 150, 240, 365, 515, 715, 1000];
     // VRF Data       

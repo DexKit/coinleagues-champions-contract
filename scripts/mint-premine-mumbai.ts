@@ -12,7 +12,7 @@ async function main() {
   // manually to make sure everything is compiled
   // await hre.run('compile');
   // On Mumbai
-  const championsAddress = "0xd940E4e443a9bC2Bdbe6521677906ECDCB96Eb42"
+  const championsAddress = "0x05b93425E4b44c9042Ed97b7A332aB1575EbD25d"
 
   const Champions = await hre.ethers.getContractFactory("CoinLeagueChampionsMumbai");
   const champions  = await Champions.attach(championsAddress);
