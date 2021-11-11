@@ -12,22 +12,13 @@ async function main() {
   // manually to make sure everything is compiled
   // await hre.run('compile');
   // On Mumbai
-  const championsAddress = "0x6e606c082dEcb1BA4710085a7E2c968f58B484e0"
+  const championsAddress = "0x15d727080E226F31dDb4730734315aF23A1bcBDe"
 
-  const Champions = await hre.ethers.getContractFactory("CoinLeagueChampionsMumbai");
+  const Champions = await hre.ethers.getContractFactory("CoinLeagueChampionsMumbaiV2");
   const champions  = await Champions.attach(championsAddress);
   let mine;
-
-  for (let index = 0; index < 10; index++) {
-    mine = await champions.preMine()
-    await mine.wait()
-    console.log('pre mined %d', index)
-  }
- 
-
-  await champions.deployed();
-  console.log("Champions deployed to:", champions.address);
- 
+  mine = await champions.preMine(7);
+  await mine.wait()
 }
 
 // We recommend this pattern to be able to use async/await everywhere

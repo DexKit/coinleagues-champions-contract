@@ -6,9 +6,12 @@
   "author": "JoaoCampos89 <info@dexkit.com>",
   "scripts": {
     "test": "npx hardhat  test",   
+    "test:v2": "npx hardhat  test test/championsv2.test.ts",
     "compile": "npx hardhat  compile",
     "deploy:mumbai": "npx hardhat run scripts/deploy-coinleaguechampions-mumbai.ts --network mumbai",
-    "mint:premine:mumbai": "npx hardhat run scripts/mint-premine-mumbai.ts --network mumbai"
+    "deploy:mumbai:v2": "npx hardhat run scripts/deploy-coinleaguechampions-mumbai-v2.ts --network mumbai",
+    "mint:premine:mumbai": "npx hardhat run scripts/mint-premine-mumbai.ts --network mumbai",
+    "mint:premine:mumbai:v2": "npx hardhat run scripts/mint-premine-mumbai-v2.ts --network mumbai"
   },
   "devDependencies": {
     "@chainlink/contracts": "^0.2.1",

@@ -13,25 +13,26 @@ contract CoinLeagueChampions is ERC721, VRFConsumerBase, Ownable {
     using SafeERC20 for IERC20;
     Counters.Counter private _tokenIdCounter;
     address constant internal TEAM_WALLET = 0x69be1977431935eEfCEb3cb23A682Dd1b601A1D4;
-    uint256 constant PRE_MINE_MAX_SUPPLY = 800;
-    uint256 constant MAX_SUPPLY_1 = 4000;
-    uint256 constant MAX_SUPPLY_2 = 4000;
-    uint256 constant MAX_SUPPLY_3 = 2200;
+    uint256 constant PRE_MINE_MAX_SUPPLY = 1000;
+    uint256 constant MAX_SUPPLY_1 = 3300;
+    uint256 constant MAX_SUPPLY_2 = 3300;
+    uint256 constant MAX_SUPPLY_3 = 3400;
     uint256 constant MAX_SUPPLY = 11000;
     uint256 constant PRICE_FIRST = 250 ether;
     uint256 constant PRICE_SECOND =  260 ether;
     uint256 constant PRICE_THIRD = 270 ether;
-    uint256 constant HOLDING_KIT = 125 * 10 ** 18;// 125 KIT
-    uint256 constant HOLDING_BITT = 750 * 10 ** 18;// 750 BITT
+    uint256 constant HOLDING_KIT = 50 * 10 ** 18;// 50 KIT
+    uint256 constant HOLDING_BITT = 200 * 10 ** 18;// 200 BITT
     // NOTE: Change this to real values before deploy
-    uint256 constant SALE_TIMESTAMP_FIRST = 1632751640;
-    uint256 constant SALE_EARLY_TIMESTAMP_FIRST = 1632751640;
+    uint256 constant SALE_EARLY_TIMESTAMP_FIRST = 1637211600;
+    uint256 constant SALE_TIMESTAMP_FIRST = 1637254800;
 
-    uint256 constant SALE_TIMESTAMP_SECOND = 1632751640;
-    uint256 constant SALE_EARLY_TIMESTAMP_SECOND = 1632751640;
-
-    uint256 constant SALE_TIMESTAMP_THIRD = 1632751640;
-    uint256 constant SALE_EARLY_TIMESTAMP_THIRD = 1632751640;
+    uint256 constant SALE_EARLY_TIMESTAMP_SECOND = 1638421200;
+    uint256 constant SALE_TIMESTAMP_SECOND = 1638422100;
+    
+    uint256 constant SALE_EARLY_TIMESTAMP_THIRD = 1639631700;
+    uint256 constant SALE_TIMESTAMP_THIRD = 1639674000;
+    
     
      // Properties used for games
     mapping(uint256 => uint256) public attack;

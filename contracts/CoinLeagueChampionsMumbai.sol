@@ -21,14 +21,15 @@ contract CoinLeagueChampionsMumbai is ERC721, VRFConsumerBase, Ownable {
     uint256 constant PRICE_FIRST = 100;
     uint256 constant PRICE_SECOND = 100;
     uint256 constant PRICE_THIRD = 100;
-    uint256 constant HOLDING_KIT = 125 * 10 ** 18;// 125 KIT
-    uint256 constant HOLDING_BITT = 750 * 10 ** 18;// 750 BITT
-    uint256 constant SALE_TIMESTAMP_FIRST = 1632751640;
-    uint256 constant SALE_EARLY_TIMESTAMP_FIRST = 1632751640;
-    uint256 constant SALE_TIMESTAMP_SECOND = 1632751640;
-    uint256 constant SALE_EARLY_TIMESTAMP_SECOND = 1632751640;
-    uint256 constant SALE_TIMESTAMP_THIRD = 1632751640;
-    uint256 constant SALE_EARLY_TIMESTAMP_THIRD = 1632751640;
+    uint256 constant HOLDING_KIT = 50 * 10 ** 18;// 125 KIT
+    uint256 constant HOLDING_BITT = 200 * 10 ** 18;// 750 BITT
+    uint256 constant SALE_EARLY_TIMESTAMP_FIRST = 1636656483;
+    uint256 constant SALE_TIMESTAMP_FIRST = 1636670883;
+    uint256 constant SALE_EARLY_TIMESTAMP_SECOND = 1636656483;
+    uint256 constant SALE_TIMESTAMP_SECOND = 1636670883;
+    uint256 constant SALE_EARLY_TIMESTAMP_THIRD = 1636656483;
+    uint256 constant SALE_TIMESTAMP_THIRD = 1636670883;
+    
      // Properties used for games
     mapping(uint256 => uint256) public attack;
     mapping(uint256 => uint256) public defense;
