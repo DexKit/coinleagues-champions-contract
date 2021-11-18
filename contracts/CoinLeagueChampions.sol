@@ -18,19 +18,19 @@ contract CoinLeagueChampions is ERC721, VRFConsumerBase, Ownable {
     uint256 constant MAX_SUPPLY_2 = 3300;
     uint256 constant MAX_SUPPLY_3 = 3400;
     uint256 constant MAX_SUPPLY = 11000;
-    uint256 constant PRICE_FIRST = 250 ether;
-    uint256 constant PRICE_SECOND =  260 ether;
-    uint256 constant PRICE_THIRD = 270 ether;
+    uint256 constant PRICE_FIRST = 115 ether;
+    uint256 constant PRICE_SECOND =  115 ether;
+    uint256 constant PRICE_THIRD = 115 ether;
     uint256 constant HOLDING_KIT = 50 * 10 ** 18;// 50 KIT
     uint256 constant HOLDING_BITT = 200 * 10 ** 18;// 200 BITT
-    // NOTE: Change this to real values before deploy
+ 
     uint256 constant SALE_EARLY_TIMESTAMP_FIRST = 1637211600;
     uint256 constant SALE_TIMESTAMP_FIRST = 1637254800;
 
     uint256 constant SALE_EARLY_TIMESTAMP_SECOND = 1638421200;
-    uint256 constant SALE_TIMESTAMP_SECOND = 1638422100;
+    uint256 constant SALE_TIMESTAMP_SECOND = 1638464400;
     
-    uint256 constant SALE_EARLY_TIMESTAMP_THIRD = 1639631700;
+    uint256 constant SALE_EARLY_TIMESTAMP_THIRD = 1639630800;
     uint256 constant SALE_TIMESTAMP_THIRD = 1639674000;
     
     
@@ -69,13 +69,13 @@ contract CoinLeagueChampions is ERC721, VRFConsumerBase, Ownable {
     }
     // Owner can mint at any time
     function preMine() public onlyOwner returns (bytes32 requestId){
-        require(_tokenIdCounter.current() + 1 < PRE_MINE_MAX_SUPPLY, "Pre mine supply reached" );
+        require(_tokenIdCounter.current()  < PRE_MINE_MAX_SUPPLY, "Pre mine supply reached" );
         requestId = safeMint();
     }
 
     // Owner can mint to other users at any time
     function preMineTo(address to) public onlyOwner returns (bytes32 requestId){
-        require(_tokenIdCounter.current() + 1 < PRE_MINE_MAX_SUPPLY, "Pre mine supply reached" );
+        require(_tokenIdCounter.current() < PRE_MINE_MAX_SUPPLY, "Pre mine supply reached" );
         requestId = safeMintTo(to);
     }
 
@@ -85,8 +85,8 @@ contract CoinLeagueChampions is ERC721, VRFConsumerBase, Ownable {
         }else{
             require(block.timestamp >= SALE_TIMESTAMP_FIRST );
         }
-        require(_tokenIdCounter.current() + 1 >= PRE_MINE_MAX_SUPPLY, "Need to Premine First" );
-        require(_tokenIdCounter.current() + 1 < MAX_SUPPLY_1 + PRE_MINE_MAX_SUPPLY, "First Round Max Supply reached" );
+        require(_tokenIdCounter.current()  >= PRE_MINE_MAX_SUPPLY, "Need to Premine First" );
+        require(_tokenIdCounter.current()  < MAX_SUPPLY_1 + PRE_MINE_MAX_SUPPLY, "First Round Max Supply reached" );
         require(msg.value == PRICE_FIRST, "Sent exact price");
         requestId = safeMint();
         
@@ -98,8 +98,8 @@ contract CoinLeagueChampions is ERC721, VRFConsumerBase, Ownable {
         }else{
             require(block.timestamp >= SALE_TIMESTAMP_SECOND );
         }
-        require(_tokenIdCounter.current() + 1 >= MAX_SUPPLY_1 + PRE_MINE_MAX_SUPPLY, "Still tokens on first round" );
-        require(_tokenIdCounter.current() + 1 < MAX_SUPPLY_1 + PRE_MINE_MAX_SUPPLY + MAX_SUPPLY_2, "Second Round Max Supply reached" );
+        require(_tokenIdCounter.current()  >= MAX_SUPPLY_1 + PRE_MINE_MAX_SUPPLY, "Still tokens on first round" );
+        require(_tokenIdCounter.current()  < MAX_SUPPLY_1 + PRE_MINE_MAX_SUPPLY + MAX_SUPPLY_2, "Second Round Max Supply reached" );
         require(msg.value == PRICE_SECOND, "Sent exact price");
         requestId = safeMint();     
     }
@@ -110,7 +110,7 @@ contract CoinLeagueChampions is ERC721, VRFConsumerBase, Ownable {
         }else{
             require(block.timestamp >= SALE_TIMESTAMP_THIRD );
         }
-        require(_tokenIdCounter.current() + 1 >= MAX_SUPPLY_1 + MAX_SUPPLY_2 + PRE_MINE_MAX_SUPPLY, "Still tokens on second round" );
+        require(_tokenIdCounter.current() >= MAX_SUPPLY_1 + MAX_SUPPLY_2 + PRE_MINE_MAX_SUPPLY, "Still tokens on second round" );
         require(msg.value == PRICE_THIRD, "Sent exact price");
         requestId = safeMint();     
     }

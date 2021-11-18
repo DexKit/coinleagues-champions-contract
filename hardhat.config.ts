@@ -41,7 +41,7 @@ const { ALCHEMY_API, PRIVATE_KEY } = process.env;
     polygon: {
       url: `https://polygon-rpc.com/`,
       accounts: [PRIVATE_KEY],
-      gasPrice: 8000000000,
+      gasPrice: 50000000000,
     },
   },
   gasReporter: {

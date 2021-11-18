@@ -5,11 +5,15 @@
   "repository": "https://github.com/DexKit/coinleagues-champions-contract.git",
   "author": "JoaoCampos89 <info@dexkit.com>",
   "scripts": {
-    "test": "npx hardhat  test",   
+    "test": "npx hardhat  test test/champions.test.ts",   
     "test:v2": "npx hardhat  test test/championsv2.test.ts",
     "compile": "npx hardhat  compile",
+    "deploy:matic": "npx hardhat run scripts/deploy-coinleaguechampions-matic.ts --network polygon",
     "deploy:mumbai": "npx hardhat run scripts/deploy-coinleaguechampions-mumbai.ts --network mumbai",
     "deploy:mumbai:v2": "npx hardhat run scripts/deploy-coinleaguechampions-mumbai-v2.ts --network mumbai",
+    "withdraw:mumbai": "npx hardhat run scripts/withdraw-mumbai.ts --network mumbai",
+    "withdraw:link:mumbai": "npx hardhat run scripts/withdraw-link-mumbai.ts --network mumbai",
+    "mint:premine:mainnet": "npx hardhat run scripts/mint-premine-mainnet.ts --network polygon",
     "mint:premine:mumbai": "npx hardhat run scripts/mint-premine-mumbai.ts --network mumbai",
     "mint:premine:mumbai:v2": "npx hardhat run scripts/mint-premine-mumbai-v2.ts --network mumbai"
   },

@@ -13,25 +13,26 @@ contract CoinLeagueChampionsTest is ERC721, VRFConsumerBase, Ownable {
     using SafeERC20 for IERC20;
     Counters.Counter private _tokenIdCounter;
     address constant internal TEAM_WALLET = 0x69be1977431935eEfCEb3cb23A682Dd1b601A1D4;
-    uint256 constant PRE_MINE_MAX_SUPPLY = 8;
-    uint256 constant MAX_SUPPLY_1 = 40;
-    uint256 constant MAX_SUPPLY_2 = 40;
-    uint256 constant MAX_SUPPLY_3 = 22;
+    uint256 constant PRE_MINE_MAX_SUPPLY = 10;
+    uint256 constant MAX_SUPPLY_1 = 33;
+    uint256 constant MAX_SUPPLY_2 = 33;
+    uint256 constant MAX_SUPPLY_3 = 34;
     uint256 constant MAX_SUPPLY = 110;
-    uint256 constant PRICE_FIRST = 250 ether;
-    uint256 constant PRICE_SECOND =  260 ether;
-    uint256 constant PRICE_THIRD = 270 ether;
-    uint256 constant HOLDING_KIT = 125 * 10 ** 18;// 125 KIT
-    uint256 constant HOLDING_BITT = 750 * 10 ** 18;// 750 BITT
-    // NOTE: Change this to real values before deploy
-    uint256 constant SALE_TIMESTAMP_FIRST = 1632751640;
+    uint256 constant PRICE_FIRST = 115 ether;
+    uint256 constant PRICE_SECOND =  115 ether;
+    uint256 constant PRICE_THIRD = 115 ether;
+    uint256 constant HOLDING_KIT = 50 * 10 ** 18;// 50 KIT
+    uint256 constant HOLDING_BITT = 200 * 10 ** 18;// 200 BITT
+ 
     uint256 constant SALE_EARLY_TIMESTAMP_FIRST = 1632751640;
+    uint256 constant SALE_TIMESTAMP_FIRST = 1632751640;
 
-    uint256 constant SALE_TIMESTAMP_SECOND = 1632751640;
     uint256 constant SALE_EARLY_TIMESTAMP_SECOND = 1632751640;
-
-    uint256 constant SALE_TIMESTAMP_THIRD = 1632751640;
+    uint256 constant SALE_TIMESTAMP_SECOND = 1632751640;
+    
     uint256 constant SALE_EARLY_TIMESTAMP_THIRD = 1632751640;
+    uint256 constant SALE_TIMESTAMP_THIRD = 1632751640;
+    
     
      // Properties used for games
     mapping(uint256 => uint256) public attack;
@@ -45,8 +46,8 @@ contract CoinLeagueChampionsTest is ERC721, VRFConsumerBase, Ownable {
     IERC20 internal immutable BITTOKEN = IERC20(0xfd0cbdDec28a93bB86B9db4A62258F5EF25fEfdE);
     // Mapping of rarity with token ID
     mapping(uint256 => uint256) internal rarity;
-    mapping(bytes32 => address) requestToSender;
-    mapping(bytes32 => uint256) requestToTokenId;
+    mapping(bytes32 => address) public requestToSender;
+    mapping(bytes32 => uint256) public requestToTokenId;
                                     //%1, 5 %, 7.5%, 9%, 12.5%, 15%                               
     uint256 [] accumulated_rarity = [0, 25, 75, 150, 240, 365, 515, 715, 1000];
     // VRF Data       
@@ -74,7 +75,7 @@ contract CoinLeagueChampionsTest is ERC721, VRFConsumerBase, Ownable {
 
     // Owner can mint to other users at any time
     function preMineTo(address to) public onlyOwner returns (bytes32 requestId){
-        require(_tokenIdCounter.current()  < PRE_MINE_MAX_SUPPLY, "Pre mine supply reached" );
+        require(_tokenIdCounter.current() < PRE_MINE_MAX_SUPPLY, "Pre mine supply reached" );
         requestId = safeMintTo(to);
     }
 
@@ -109,7 +110,7 @@ contract CoinLeagueChampionsTest is ERC721, VRFConsumerBase, Ownable {
         }else{
             require(block.timestamp >= SALE_TIMESTAMP_THIRD );
         }
-        require(_tokenIdCounter.current()  >= MAX_SUPPLY_1 + MAX_SUPPLY_2 + PRE_MINE_MAX_SUPPLY, "Still tokens on second round" );
+        require(_tokenIdCounter.current() >= MAX_SUPPLY_1 + MAX_SUPPLY_2 + PRE_MINE_MAX_SUPPLY, "Still tokens on second round" );
         require(msg.value == PRICE_THIRD, "Sent exact price");
         requestId = safeMint();     
     }

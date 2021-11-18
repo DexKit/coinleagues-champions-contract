@@ -11,26 +11,12 @@ async function main() {
   // If this script is run directly using `node` you may want to call compile
   // manually to make sure everything is compiled
   // await hre.run('compile');
-  // On Mumbai
- 
+  const championsAddress = "0xA3cE3c35Cd032e0343d10248FFDD706c64e13619"
+  const Champions = await hre.ethers.getContractFactory("CoinLeagueChampionsMumbai");
+  const champions  = await Champions.attach(championsAddress);
+  const withdraw = await champions.withdrawLink()
+  await withdraw.wait()
 
-  const Champions = await hre.ethers.getContractFactory("CoinLeagueChampions");
-  const champions  = await Champions.deploy();
-
-  await champions.deployed();
-  console.log("Champions deployed to:", champions.address);
-  // Premine all the champions
- /* for (let index = 0; index < 150; index++) {
-      await champions.premine();
-  }*/
-
-   // Should mint first round
-   /*for (let index = 0; index < 150; index++) {
-    await champions.premine();
-}*/
-
-
- 
 }
 
 // We recommend this pattern to be able to use async/await everywhere

@@ -2,9 +2,9 @@ import { expect } from "chai";
 import { BigNumber } from "ethers";
 import { ethers, network } from "hardhat";
 
-const PRICE1 = BigNumber.from(250).mul(BigNumber.from(10).pow(18));
-const PRICE2 = BigNumber.from(260).mul(BigNumber.from(10).pow(18));
-const PRICE3 = BigNumber.from(270).mul(BigNumber.from(10).pow(18));
+const PRICE1 = BigNumber.from(110).mul(BigNumber.from(10).pow(18));
+const PRICE2 = BigNumber.from(115).mul(BigNumber.from(10).pow(18));
+const PRICE3 = BigNumber.from(115).mul(BigNumber.from(10).pow(18));
 
 describe("Champions", function () {
   it("should premine test  and mint all coins after timestamps", async function () {
@@ -54,13 +54,13 @@ describe("Champions", function () {
     let failedMines = 0;
 
     // let's premine all the amount
-    for (let index = 0; index < 8; index++) {
+    for (let index = 0; index < 20; index++) {
       console.log(index);
       try {
-        const mine = await champions.preMine();
+        const mine = await champions.connect(owner).preMine();
         await mine.wait();
         console.log(`allocated rarity`);
-        console.log((await champions.getRarityOf(index)).toString());
+        console.log('premining');
       } catch (e) {
         console.log(e);
         failedMines++;
@@ -69,13 +69,13 @@ describe("Champions", function () {
     }
 
     // first round
-    for (let index = 0; index < 40; index++) {
+    for (let index = 0; index < 33; index++) {
       console.log(index);
       try {
-        const mine = await champions.mintFirstRound({value: PRICE1});
+        const mine = await champions.connect(owner).mintFirstRound({value: PRICE1});
         await mine.wait();
         console.log(`allocated rarity`);
-        console.log((await champions.getRarityOf(index)).toString());
+        console.log('mint first');
       } catch (e) {
         console.log(e);
         failedMines++;
@@ -84,13 +84,13 @@ describe("Champions", function () {
     }
 
     // second round
-    for (let index = 0; index < 40; index++) {
+    for (let index = 0; index < 33; index++) {
       console.log(index);
       try {
         const mine = await champions.mintSecondRound({value: PRICE2});
         await mine.wait();
         console.log(`allocated rarity`);
-        console.log((await champions.getRarityOf(index)).toString());
+        console.log('mint second');
       } catch (e) {
         console.log(e);
         failedMines++;
@@ -99,12 +99,12 @@ describe("Champions", function () {
     }
 
     // third round
-    for (let index = 0; index < 22; index++) {
+    for (let index = 0; index < 34; index++) {
       console.log(index);
       try {
         const mine = await champions.mintThirdRound({value: PRICE3});
         await mine.wait();
-        console.log(`allocated rarity`);
+        console.log('mint third');
         console.log((await champions.getRarityOf(index)).toString());
       } catch (e) {
         console.log(e);

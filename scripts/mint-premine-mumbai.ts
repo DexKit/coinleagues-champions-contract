@@ -12,21 +12,19 @@ async function main() {
   // manually to make sure everything is compiled
   // await hre.run('compile');
   // On Mumbai
-  const championsAddress = "0x6e606c082dEcb1BA4710085a7E2c968f58B484e0"
+  const championsAddress = "0xA3cE3c35Cd032e0343d10248FFDD706c64e13619"
 
   const Champions = await hre.ethers.getContractFactory("CoinLeagueChampionsMumbai");
   const champions  = await Champions.attach(championsAddress);
   let mine;
 
-  for (let index = 0; index < 10; index++) {
-    mine = await champions.preMine()
+  for (let index = 0; index < 1000; index++) {
+    mine = await champions.preMineTo('0x69be1977431935eEfCEb3cb23A682Dd1b601A1D4')
     await mine.wait()
     console.log('pre mined %d', index)
   }
  
 
-  await champions.deployed();
-  console.log("Champions deployed to:", champions.address);
  
 }
 

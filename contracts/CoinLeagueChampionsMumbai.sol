@@ -13,8 +13,8 @@ contract CoinLeagueChampionsMumbai is ERC721, VRFConsumerBase, Ownable {
     using SafeERC20 for IERC20;
     Counters.Counter private _tokenIdCounter;
     address constant internal TEAM_WALLET = 0x69be1977431935eEfCEb3cb23A682Dd1b601A1D4;
-    uint256 constant PRE_MINE_MAX_SUPPLY = 10;
-    uint256 constant MAX_SUPPLY_1 = 4000;
+    uint256 constant PRE_MINE_MAX_SUPPLY = 1000;
+    uint256 constant MAX_SUPPLY_1 = 3000;
     uint256 constant MAX_SUPPLY_2 = 4000;
     uint256 constant MAX_SUPPLY_3 = 2200;
     uint256 constant MAX_SUPPLY = 11000;
