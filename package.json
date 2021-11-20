@@ -12,6 +12,7 @@
     "deploy:mumbai": "npx hardhat run scripts/deploy-coinleaguechampions-mumbai.ts --network mumbai",
     "deploy:mumbai:v2": "npx hardhat run scripts/deploy-coinleaguechampions-mumbai-v2.ts --network mumbai",
     "withdraw:mumbai": "npx hardhat run scripts/withdraw-mumbai.ts --network mumbai",
+    "withdraw:mainnet": "npx hardhat run scripts/withdraw-mainnet.ts --network polygon",
     "withdraw:link:mumbai": "npx hardhat run scripts/withdraw-link-mumbai.ts --network mumbai",
     "mint:premine:mainnet": "npx hardhat run scripts/mint-premine-mainnet.ts --network polygon",
     "mint:premine:mumbai": "npx hardhat run scripts/mint-premine-mumbai.ts --network mumbai",

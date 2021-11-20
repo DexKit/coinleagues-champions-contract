@@ -11,7 +11,7 @@ async function main() {
   // If this script is run directly using `node` you may want to call compile
   // manually to make sure everything is compiled
   // await hre.run('compile');
-  const championsAddress = "0x6e606c082dEcb1BA4710085a7E2c968f58B484e0"
+  const championsAddress = "0xf2a669a2749073e55c56e27c2f4edadb7bd8d95d"
   const Champions = await hre.ethers.getContractFactory("CoinLeagueChampions");
   const champions  = await Champions.attach(championsAddress);
   const withdraw = await champions.withdrawETH()
